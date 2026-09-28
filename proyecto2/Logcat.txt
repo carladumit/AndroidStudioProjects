@@ -1,0 +1,5 @@
+Lanzar la app por primera vez: onCreate --> onStart --> onResume
+Pulsar botón Home: onPause --> onStop
+Volver a la app (desde recientes): onResume
+Girar la pantalla: onPause --> onStop--> onCreate --> onResume
+Cerrar la app desde recientes: onPause --> onStop
