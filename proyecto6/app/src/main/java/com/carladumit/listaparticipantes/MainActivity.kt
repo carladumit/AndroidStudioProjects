@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -123,27 +124,39 @@ fun ListaParticipantes() {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(participantes) { participante ->
-                TarjetaParticipante(participante)
+                TarjetaParticipante(participante = participante,
+                    onEliminar = { participantes.remove(participante) }
+                )
             }
         }
     }
 }
 
 @Composable
-fun TarjetaParticipante(participante: Participante) {
+fun TarjetaParticipante(participante: Participante, onEliminar: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF3E5F5))
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                text = participante.nombre,
-                style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = "Alias: ${participante.alias}",
-                style = MaterialTheme.typography.bodyMedium
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.padding(12.dp)) {
+                Text(
+                    text = participante.nombre,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Alias: ${participante.alias}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            Button(onClick = onEliminar) {
+                Text("Eliminar")
+            }
         }
     }
 }
